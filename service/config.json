@@ -1,0 +1,24 @@
+{
+  "GH_KEY": "",
+  "ORG": "octokit",
+  "REPO": "rest.js",
+  "LABELS": [
+    {
+      "name": "Critical Priority",
+      "weight": 100
+    },
+    {
+      "name": "plugin",
+      "weight": 50
+    },
+    {
+      "name": "Mid Priority",
+      "weight": 15
+    },
+    {
+      "name": "Low Priority",
+      "weight": 7
+    }
+  ],
+  "OVERDUE_SCORE": 100
+}
