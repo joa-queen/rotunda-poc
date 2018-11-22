@@ -18,6 +18,7 @@ const reducer = (state, action) => produce(state, (draft) => {
     case LOAD:
       draft.loaded = false;
       draft.loading = true;
+      draft.loadError = null;
       break;
 
     case LOAD_SUCCESS:

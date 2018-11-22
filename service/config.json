@@ -2,6 +2,7 @@
   "GH_KEY": "",
   "ORG": "octokit",
   "REPO": "rest.js",
+  "OVERDUE_SCORE": 100,
   "LABELS": [
     {
       "name": "Critical Priority",
@@ -19,6 +20,5 @@
       "name": "Low Priority",
       "weight": 7
     }
-  ],
-  "OVERDUE_SCORE": 100
+  ]
 }

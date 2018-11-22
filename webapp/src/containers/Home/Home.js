@@ -2,20 +2,42 @@ import React, { useState } from 'react';
 
 import { Select, Icon, Message } from 'semantic-ui-react';
 
+import { useOnMount } from 'hooks';
 import useIssues from 'state/issues/hook';
 import useMembers from 'state/members/hook';
 
+import Loading from 'components/Loading';
 import Issues from 'components/Issues';
 
+import Error from './Error';
+
 const issueFilter = filter => (issue) => {
-  const assignees = issue.assignees.map(assignee => assignee.login);
+  const assignees = issue.assignees.map(assignee => assignee.id);
   return !filter || assignees.includes(filter);
 };
 
 const Home = () => {
+  const [initialized, setInitialized] = useState(false);
   const [memberSelected, setMemberSelected] = useState(null);
-  const [issues] = useIssues();
-  const [members] = useMembers();
+  const [members, membersActions] = useMembers();
+  const [issues, issuesActions] = useIssues();
+
+  useOnMount(() => {
+    membersActions.load();
+    issuesActions.load();
+    setInitialized(true);
+  });
+
+  const error = members.loadError || issues.loadError;
+  if (error) return <Error message={`${error}`} />;
+
+  if (
+    !initialized
+    || members.loading
+    || issues.loading
+    || !members.loaded
+    || !issues.loaded
+  ) return <Loading />;
 
   const memberOptions = members.data.map(member => ({
     key: member.id,

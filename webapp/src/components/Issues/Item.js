@@ -6,6 +6,10 @@ import moment from 'moment';
 const IssueContainer = styled.tr`
   padding: 10px 0;
 
+  &:hover {
+    background-color: #f4f4f4;
+  }
+
   & td {
     border-bottom: 1px solid #aaa;
     padding: 15px;

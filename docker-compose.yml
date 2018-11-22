@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  webapp:
+    build: webapp
+    ports:
+     - "80:80"
+    links:
+     - service
+    environment:
+     - API=http://service:8080
+
+  service:
+    build: service
+    ports:
+     - "8080:8080"

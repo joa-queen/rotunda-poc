@@ -1,10 +1,8 @@
 import express from 'express';
 import moment from 'moment-business-days';
-import Octokit from '@octokit/rest';
 
+import octokit from './octokit';
 import { ORG, REPO, LABELS, OVERDUE_SCORE } from '../config.json';
-
-const octokit = new Octokit();
 
 moment.updateLocale('us', {
   workingWeekdays: [1, 2, 3, 4, 5],

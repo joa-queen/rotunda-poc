@@ -1,10 +1,7 @@
 import express from 'express';
-import Octokit from '@octokit/rest';
 
+import octokit from './octokit';
 import { ORG } from '../config.json';
-
-const octokit = new Octokit();
-
 
 const members = express();
 
