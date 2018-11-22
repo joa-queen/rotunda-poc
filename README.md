@@ -29,3 +29,4 @@ Both service can be run for development with `npm start`.
 
 1. Have Docker and Docker Compose installed
 2. `docker-compose up`
+3. Access to http://localhost
