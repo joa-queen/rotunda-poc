@@ -53,6 +53,7 @@ const Issue = ({
   created_at,
   user,
   labels,
+  assignees,
 }) => (
   <IssueContainer>
     <Weight overdue={overdue} value={weight} />
@@ -61,6 +62,11 @@ const Issue = ({
       <SubTitle>
         {`#${number} opened ${moment(created_at).fromNow()} by @${user.login}`}
       </SubTitle>
+      {assignees.length > 0 && (
+        <SubTitle>
+          {`Assigned to: ${assignees.map(assignee => `@${assignee.login}`).join(', ')}`}
+        </SubTitle>
+      )}
     </td>
     <td>
       {labels.map(({ id, name }) => (
@@ -83,6 +89,9 @@ Issue.propTypes = {
   labels: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string.isRequired }),
   ).isRequired,
+  assignees: PropTypes.arrayOf(PropTypes.shape({
+    login: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default Issue;
