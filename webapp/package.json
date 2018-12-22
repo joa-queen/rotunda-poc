@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "immer": "^1.8.0",
     "moment": "^2.22.2",
+    "query-string": "^6.2.0",
     "react": "^16.7.0-alpha.2",
     "react-dom": "^16.7.0-alpha.2",
     "react-router-dom": "^4.3.1",

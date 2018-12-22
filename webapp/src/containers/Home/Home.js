@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import qs from 'query-string';
 import { Select, Icon, Message } from 'semantic-ui-react';
 
 import { useOnMount } from 'hooks';
@@ -12,13 +14,12 @@ import Issues from 'components/Issues';
 import Error from './Error';
 
 const issueFilter = filter => (issue) => {
-  const assignees = issue.assignees.map(assignee => assignee.id);
+  const assignees = issue.assignees.map(assignee => assignee.login);
   return !filter || assignees.includes(filter);
 };
 
-const Home = () => {
+const Home = ({ history }) => {
   const [initialized, setInitialized] = useState(false);
-  const [memberSelected, setMemberSelected] = useState(null);
   const [members, membersActions] = useMembers();
   const [issues, issuesActions] = useIssues();
 
@@ -41,11 +42,14 @@ const Home = () => {
 
   const memberOptions = members.data.map(member => ({
     key: member.id,
-    value: member.id,
+    value: member.login,
     text: `@${member.login}`,
   }));
-  const selectedMember = (e, data) => setMemberSelected(data.value);
-  const clearMember = () => setMemberSelected(null);
+  const params = qs.parse(history.location.search);
+  const memberSelected = params.who;
+  const selectedMember = (e, data) => history.push(`?who=${data.value}`);
+  const clearMember = () => history.push('');
+  console.log('memberSelected', memberSelected);
 
   const sortedIssues = issues.data
     .filter(issueFilter(memberSelected))
@@ -92,5 +96,11 @@ const Home = () => {
     </div>
   );
 };
+Home.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({ search: PropTypes.string }).isRequired,
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
-export default Home;
+export default withRouter(Home);
